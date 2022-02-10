@@ -106,7 +106,7 @@ class InstaLOGIN(object):
                 print('Login Failed: Incorrect credentials')
 
     def createCustomGreeting(self, greeting):
-        # Get username and add custom greeting
+        # Метод ввода имя пользователя и добавить пользовательское приветствие
         if self.__wait_for_element__(self.selectors['name'], "xpath", 10):
             user_name = self.__get_element__(self.selectors['name'], "xpath").text
             if user_name:
@@ -116,7 +116,7 @@ class InstaLOGIN(object):
         return greeting
 
     def typeMessage(self, user, message):
-        # Go to page and type message
+        # Перейти на страницу и написать сообщение
         if self.__wait_for_element__(self.selectors['next_button'], "xpath"):
             self.__get_element__(self.selectors['next_button'], "xpath").click()
             self.__random_sleep__()
@@ -148,7 +148,7 @@ class InstaLOGIN(object):
             if greeting != None:
                 greeting = self.createCustomGreeting(greeting)
 
-            # Select user from list
+            # Выбрать пользователя из списка
             elements = self.driver.find_elements_by_xpath(self.selectors['select_user'].format(user))
             if elements and len(elements) > 0:
                 elements[0].click()
@@ -166,7 +166,7 @@ class InstaLOGIN(object):
 
                 return True
 
-            # In case user has changed his username or has a private account
+            # В случае, если пользователь изменил свое имя пользователя или у него приватная учетная запись
             else:
                 print(f'User {user} not found! Skipping.')
                 return False
@@ -192,7 +192,7 @@ class InstaLOGIN(object):
                 self.__type_slow__(self.selectors['search_user'], "name", user)
                 self.__random_sleep__()
 
-                # Select user from list
+                # Выбрать пользователя из списка
                 elements = self.driver.find_elements_by_xpath(self.selectors['select_user'].format(user))
                 if elements and len(elements) > 0:
                     elements[0].click()
@@ -221,7 +221,7 @@ class InstaLOGIN(object):
         self.driver.get('https://www.instagram.com/direct/inbox/')
         self.__random_sleep__(5, 7)
         
-        # Definitely a better way to do this:
+        # Определенно лучший способ сделать это:
         actions = ActionChains(self.driver)
         actions.send_keys(Keys.TAB*2 + Keys.ENTER).perform()
         actions.send_keys(Keys.TAB*4 + Keys.ENTER).perform()
@@ -257,7 +257,7 @@ class InstaLOGIN(object):
             return False
 
     def __get_element__(self, element_tag, locator):
-        """Wait for element and then return when it is available"""
+        """Дождитесь элемента, а затем вернитесь, когда он будет доступен"""
         try:
             locator = locator.upper()
             dr = self.driver
@@ -277,7 +277,7 @@ class InstaLOGIN(object):
         return None
 
     def is_element_present(self, how, what):
-        """Check if an element is present"""
+        """Проверить наличие элемента"""
         try:
             self.driver.find_element(by=how, value=what)
         except NoSuchElementException:
@@ -285,7 +285,7 @@ class InstaLOGIN(object):
         return True
 
     def __wait_for_element__(self, element_tag, locator, timeout=30):
-        """Wait till element present. Max 30 seconds"""
+        """Дождитесь появления элемента. Макс. 30 секунд"""
         result = False
         self.driver.implicitly_wait(0)
         locator = locator.upper()
