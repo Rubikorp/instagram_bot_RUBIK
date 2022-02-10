@@ -17,7 +17,7 @@ print(dat)
 if __name__ == '__main__':
     # Auto login
     insta = InstaLOGIN(username='login', password='pass', headless=False)
-
+    # перебор по списку и отправка сообщения
     i = 0
     while i<len(l):
         insta.sendMessage(user=l[i], message=dat )
